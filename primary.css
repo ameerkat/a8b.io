@@ -1,0 +1,20 @@
+body {
+    background-color: #E5E5E5;
+	font-family: Didot;
+	padding: 23px 0px;
+}
+
+.content-wrapper {
+	max-width: 800px;
+	margin: 0px auto;
+	background-color: #FFFFFF;
+	padding: 60px 80px 60px 80px;
+	color: #3B3D42;
+	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .2);
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #2B65EC;
+    margin-right: 10px;
+}

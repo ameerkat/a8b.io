@@ -1,0 +1,16 @@
+.title, .author {
+    display: inline-block;
+}
+
+ul.notes {
+    line-height: 2em;
+}
+
+table.metadata tr td {
+    padding: 5px 20px;
+}
+
+.highlight {
+    background-color: #FFFACD;
+    padding: 10px;
+}
