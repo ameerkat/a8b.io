@@ -18,3 +18,11 @@ body {
     color: #2B65EC;
     margin-right: 10px;
 }
+
+.description.small {
+	font-size: 0.7em;
+}
+
+.description.small a {
+	font-size: 0.7em;
+}
