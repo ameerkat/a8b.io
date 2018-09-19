@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>Notes</title>
+        <link rel="stylesheet" type="text/css" href="book.css">
+        <link rel="stylesheet" type="text/css" href="../primary.css">
+    </head>
+    <body>
+        <div class="content-wrapper">
+            <div class="navigation">
+                    <a href="../">&#8624; Home</a><a href="./">&#8592; Blog</a>
+            </div>
+            <h1 class="title">[Note To Self] Static Site Hosting with S3 and Google Domains</h1>
+            <h3>May 15, 2018</h3>
+            <div class="abstract">Note to self are set up instructions I write mainly for myself.<br /> Most web hosting companies offer web hosting at fixed or tiered costs based on usage, however the lowest tier is usually still at least a few dollars. With Amazon S3 you can get a static website up and running for pennies if your traffic is low. This is great as a low cost way to experiment. Below are the steps on how to get your site up and running and set the proper DNS entries on domains.google (although you should be able to get this working with any registrar).</div>
+            <ol>
+                <li>Find a domain on your registrar of choice, I like to use <a href="domains.google">domains.google</a> so I'll show you how to set DNS entries on there.</li>
+                <li>If you don't have AWS, sign up and log in. Head to the S3 section.</li>
+                <li>Create a new bucket that matches your domain using the "www" subdomain. For example for this site I would use "www.a8b.io" as the bucket name.</li>
+                <li>After you create the bucket, on the properties tab of the bucket enable "Static website hosting." Set the name of the index and error html pages if you want. I usually use the defaults.</li>
+                <li>Make sure everything you upload that you want to be accessible to the bucket is public. You can upload a simple html test page for now just to ensure the bucket is working.</li>
+                <li>On google.domains, under the DNS settings for your site, under Synthetic records set up a Subdomain forward for "@.a8b.io" to www.a8b.io</li>
+                <li>Under custom records, setup a CNAME entry for "www" pointing to the URL of your bucket &lt;bucket name&gt;.s3-website-&lt;region&gt;.amazonaws.com</li>
+            </ol>
+        </div>
+    </body>
+</html>

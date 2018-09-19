@@ -3,7 +3,7 @@
 }
 
 ul.notes {
-    line-height: 2em;
+    line-height: 1.5em;
 }
 
 table.metadata tr td {
@@ -12,5 +12,4 @@ table.metadata tr td {
 
 .highlight {
     background-color: #FFFACD;
-    padding: 10px;
 }
