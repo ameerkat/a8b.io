@@ -1,0 +1,67 @@
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126051187-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-126051187-1');
+    </script>
+
+    <title>Intermediate Speculations on Kryptos 4</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../primary.css">
+    <link rel="stylesheet" type="text/css" href="./blog.css">
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="header-wrapper">
+            <div class="navigation">
+                <a href="../">&#8624; Home</a>
+                <a href="./">&#8592; Blog</a>
+            </div>
+            <h1 class="title">Intermediate Speculations on Kryptos 4</h1>
+            <h3>October 13, 2018</h3>
+        </div>
+        <div class="content-wrapper">
+            <p class="highlight">This post is mostly speculation and observation and is unlikely to be interesting unless you are interested in the 4th section of Kryptos. If you are not then I would recommend skipping this post.</p>
+
+            <p>A few months ago I was deeply interested in exploring the 4th section of <a href="https://en.wikipedia.org/wiki/Kryptos">Kryptos</a>. I lost interest primarily due to the fact that I didn't deem the problem worth the time I was spending on it, the impact of solving the problem was simply not high enough. However I did start exploring the question of what kind of intelligence is necessary to solve problems and riddles like this, as well as if Deep Learning could be used to learn cryptanalytic "features" and likely keywords from those features. Recently I came back to the problem after I came across some code I had written to explore some observations on the 4th section of Kryptos. I'm sure other's have noticed or explored similar paths, and I write this down mostly because I will most likely not dedicate more time to the problem.</p>
+
+            <p>The first observation to be made is regarding the decoding of the known plain and cipher text fragments, that Sanborn has given in clues in 2010 and 2014.</p>
+
+            <pre>
+BERLINCLOCK
+NYPVTTMZFPK
+            </pre>
+            <p>Both L and C are repeated in the plain text. Furthermore to produce the cipher text of the first C (to M) is a shift 10. The next C (to P) is a shift of 13, <i>and the second C appears 3 characters after the first.</i> We notice the same thing for the L, the first encodes to a V which is a shift of 10. The next L encodes to a Z which is a shift of 14, and the second L appears 4 characters after the first!</p>
+
+            <p>If we assume the same pattern throughout the whole text we get something like</p>
+            <pre style="white-space: pre-wrap">?????D?L????K?????D?B?K?????K?B?EA??E?I?C?B?E??I?NC?????IC?????BEBLINCLECK?D?A??????B?BA?D?L?CED?</pre>
+
+            <p>There are two interesting things to note here <ol><li>BERLINCLOCK becomes BEBLINCLECK, why? Mostly because of the way I coded the program to return a single letter in the output. The real issue is that assuming this kind of shift system sometimes two or more plain text letters are possible. For example the first B is a shift of 12 to N. If you shift another 2 characters you get P which is the encoding for the R in BERLIN. This is the most confouding part, perhaps the shift patterns use some alternating length system to avoid conflicts? Perhaps the encoding system was not designed for unambiguous decoding, since Sanborn himself claims to have potentially invented the masking technique he used.</li><li>The end of the sentence could potentially be "BOBANDALICEDO". <a href="https://en.wikipedia.org/wiki/Alice_and_Bob">Bob and Alice<a> are characters introduced as "actors" in an early paper on asymmetric key cryptography. This is mostly speculation as there is little supporting evidence. The Berlin <a href="https://en.wikipedia.org/wiki/Clock_(cryptography)">Clock</a> in question could be the cryptographic technique for breaking the enigma machine and overall mean the passage is a reference to the fallability of symmetric key systems in general in favor of assymetric ones, the one's which Bob and Alice would use.</li></ol></p>
+
+            <p>Due to the conflict of point 1, it's possible the characters rotate on varying length periods (perhaps the key includes when to rotate). If we allow for that then BOBANDALICEDO becomes plausible, otherwise the A in ALICE should be present, and the O from CLOCK should come all the way down to BOB and DO. If we assume the end of the sentence to be.</p>
+
+            <pre>
+BOBANDALICEDO
+IGKUHUAUEKCAR
+            </pre>
+
+            <p>Then the first O from BOB (shifted by 7 to become G) and the last O from DO (shifted by 18 to become R) are exactly 11 apart, mainting the position shift scheme. Obviously the B,D,C, E, and L maintain this property since they were generated in the output. For the A in AND to encode to U is a shift of 21. For the A to be possible in ALICE, We note that we need to shift none (0) since the encoded character is also A, so the shifting of A would need to reset after 23, therefore using a period of 24. This is all speculation, and the O could quite well be coincidence and is not strong evidence in any case. The other counter evidence for such a system or that the initial observation may be a red herring is that such a system would be a character to character mapping simply affected by position. Perhaps inspecting the intentional errors in the other sections will lead to some clues about plausability of this theory. The strongest counter evidence for this character position shifting with varying periods is that Sanborn claims to have used 5-6 techniques, whereas only 2 (Vignere and Transposition) were used to decode the first 3 sections. So the last section would most likely be heavily convoluted and is not quite so simple.</p>
+
+            <h3>References</h3>
+            <ul>
+                <li><a href="http://kryptools.com/hints.htm">http://kryptools.com/hints.htm</a></li>
+                <li><a href="https://math.ucsd.edu/~crypto/Projects/KarlWang/index2.html">https://math.ucsd.edu/~crypto/Projects/KarlWang/index2.html</a></li>
+            </ul>
+
+            <!--<h3>Add your comments about this post on <a href="https://news.ycombinator.com/item?id=18021691">hacker news</a>.</h3> -->
+        </div>
+    </div>
+</body>
+
+</html>

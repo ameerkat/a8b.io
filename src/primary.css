@@ -1,20 +1,27 @@
 body {
-    background-color: #6C9EB5;
-	font-family: Didot;
+    background-color: #eee;
+	font-family: 'Montserrat', sans-serif;
 	font-size: 1em;
 	padding: 0px;
-	background-image: url("./images/water.jpeg");
+}
+
+.header-wrapper {
+	padding: 5%;
+	background-image: url("./images/building-header.jpg");
 	background-size: cover;
 	background-position: center bottom;
 }
 
-.content-wrapper {
+.main-wrapper {
 	max-width: 800px;
 	margin: 0px auto;
 	background-color: #FFFFFF;
-	padding: 5%;
 	color: #3B3D42;
 	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .2);
+}
+
+.content-wrapper {
+	padding: 0px 5% 5% 5%;
 }
 
 .navigation a {

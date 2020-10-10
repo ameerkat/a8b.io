@@ -1,0 +1,94 @@
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126051187-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-126051187-1');
+    </script>
+
+    <title>Abstracting at Speed</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../primary.css">
+    <link rel="stylesheet" type="text/css" href="./blog.css">
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="header-wrapper">
+            <div class="navigation">
+                <a href="../">&#8624; Home</a>
+                <a href="./">&#8592; Blog</a>
+            </div>
+            <h1 class="title">Abstracting at Speed</h1>
+            <h3>September 30, 2018</h3>
+        </div>
+        <div class="content-wrapper">
+
+            <p>One of the constant most imporant "two way roads" in Software Engineering is the balance between designing code
+                that scales and shipping code quickly. As someone who heavily driven by my priorities and purpose I realize
+                that there is always more work to do. Even if you cost 3 months for a project, you shouldn't try to fill
+                out those 3 months even though inevitably that is what happens a lot of the time if you aren't paying attention
+                (See
+                <a href="https://en.wikipedia.org/wiki/Parkinson%27s_law">Parkinson's law</a>).
+                <span class="highlight">As engineers we need to write code that could last well into the future, but could equally be thrown away
+                    tomorrow. Predicting future changes and scale without data is arbitrary, and to let it be arbitrary is
+                    irresponsible and a potential waste of time.</span>
+            </p>
+
+            <p>
+                <span class="highlight">Good engineering is not overengineering.</span> There are times when you do need to look far ahead especially
+                in a large organization when it comes to who's going to own your code in the future (hint it might not be
+                you), and how many users will need to use it. When solving those problems of scale, try to figure out how
+                to solve those problems at a platform level. Think, if this particular project was scrapped tomorrow, what
+                are the truly important problems that have not been solved that would carry over to the next project.
+                <span
+                    class="highlight">When you do need to tackle those high level problems, think about how to prevent others from spending their
+                    time on them, because not only should they not be left up to chance, they should not be something everyone
+                    spends a little time on to the detriment of the whole engineering community.</span>
+            </p>
+
+            <p>
+                <span class="highlight">When solving problems where the scope of the problem is limited to your project or a particular implementation,
+                    keep it simple.</span> Use the principal of you ain't gonna need it. To me not only does that mean don't
+                write functionality before you need it. If you're making a simple calculator application, you don't need
+                to write a microservice for each operation. Don't make something into a class that is a 5 line private method
+                unless you're going to reuse it. The flip side of that rule is that you need to be able to turn parts of
+                your code into a super modular framework if the time comes in the future. So think about how to keep things
+                cleanly separated and how you could separate them in the future, but keep them at the
+                <span style="text-decoration: underline">appropriate</span> level of modularity and abstraction.</p>
+
+            <p>The problem with overabstracting are many. You put your code in the line of fire of feature creep.
+                <span class="highlight">Do not treat a problem you are solving for yourself like a problem you are solving for everyone, unless you
+                    <i>explicitly</i> are. The reason is that usually the problem you are solving for yourself has a fixed priority
+                    to your own project, but the marginal cost of solving it for everyone may have a much lower priority
+                    in terms of usefulness.</span> Overabstracting in your own package leads to "fragmentation" as well.
+                by fragmentation I simply mean the functionality of the code is spread out to a lot of different places.
+                Fragmenting the code will lead to more development time as you'll spend a lot more time thinking about clean
+                class structures and APIs that people can understand quickly, as there are more of them and they are operating
+                further away from the core functionality of the software. When the care for determining how to abstract things
+                isn't done properly, it can result in poor APIs and very difficult to understand code which is something
+                I see
+                <i>all</i> the time.</p>
+
+            <p>Just to be clear though I am not advocating a world where everything is a big heaping plate of code spaghetti.
+                Quite frequently everyone will point to the plate of code spaghetti and say "look at that rotten smelly piece
+                of code, we can't let ourselves become like that!". Most of us have seen thousand line SQL files and methods
+                that are longer than the constitution. And then we overcompensate in the other direction without due consideration.
+                My point is
+                <i>not</i> to say hey a large pile of indecipherable code is acceptable in some situations, because it's not.
+                When things become unruly or hard to disentangle or understand, they missed the point at which to abstract
+                by a mile.
+                <span class="highlight">My point is to be deliberate in picking what to do because everything has a cost. Think carefully, act efficiently
+                    and don't waste your time.</span>
+            </p>
+
+            <!--<h3>Add your comments about this post on <a href="https://news.ycombinator.com/item?id=18021691">hacker news</a>.</h3> -->
+        </div>
+    </div>
+</body>
+
+</html>

@@ -2,10 +2,6 @@
     background-color: #F0FFFF;
 }
 
-p {
-    line-height: 1.5em;
-}
-
 p.side-note {
     background-color: #E8E8E8;
     padding: 1em;
@@ -15,4 +11,8 @@ p.side-note::before {
     content: "Side Note";
     display: block;
     font-size: 1.2em;
+}
+
+body {
+    line-height: 1.5;
 }
