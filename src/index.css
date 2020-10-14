@@ -1,7 +1,97 @@
-.section a {
-    font-size: 1.5em;
+body {
+    background-color: #eee;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1em;
+	padding: 0px;
+    margin: 0px;
 }
 
-.section {
-    margin-bottom: 20px;
+.header-wrapper {
+	padding: 5%;
+	background-image: url("./images/big_ben_unsplash_low.jpg");
+	background-size: cover;
+	background-position: center bottom;
+	height: 200px;
+	color: #ffffff;
+	border-bottom: 4px solid #56466e;
+	margin-bottom: 20px;
+}
+
+.header-wrapper .title {
+	background-color: #56466eee;
+	display: inline-block;
+	padding: 20px;
+}
+
+.header-wrapper .title a {
+	text-decoration: none;
+	color: #ffffff;
+}
+
+.content-wrapper {
+	max-width: 800px;
+	width: 80vw;
+	margin: 0px auto 20px auto;
+}
+
+.content-wrapper .post {
+	padding: 40px;
+	line-height: 1.7rem;
+	background-color: #fff;
+	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .2);
+}
+
+.content-wrapper .post-title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.content-wrapper .post .post-title a {
+	text-decoration: none;
+}
+
+.content-wrapper .post .post-title h1 {
+	margin: 0px 0px 10px 0px;
+	color: #56466e;
+}
+
+.content-wrapper .post .post-title .post-date {
+	color: #777777;
+	font-size: 10pt;
+}
+
+.content-wrapper .post .post-tags {
+	border-top: 1px solid #56466e33;
+	padding-top: 20px;
+}
+
+.content-wrapper .post .post-tags ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	color: #777777;
+	font-size: 10pt;
+}
+
+.content-wrapper .post .post-tags ul li {
+	display: inline-block;
+}
+
+.content-wrapper .up-nav, .content-wrapper .footer {
+	color: #fff;
+	background-color: #56466e;
+	display: inline-block;
+	padding: 10px;
+}
+
+.content-wrapper .up-nav a, .content-wrapper .footer a {
+	text-decoration: none;
+	color: #fff;
+}
+
+.content-wrapper .footer {
+	margin-top: 20px;
+	text-align: center;
+	display: block;
 }
