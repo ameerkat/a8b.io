@@ -1,0 +1,198 @@
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126051187-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-126051187-1');
+        </script>
+
+        <title>a8b.io</title>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../index.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+
+        <!-- <link rel="stylesheet" href="./vtvt/vtvt_demo_styles.css"> -->
+        <script type="text/javascript" src="./vtvt/vtvt.js"></script>
+
+        <style type="text/css">
+            .canvas-wrapper { text-align: center; }
+            .canvas-wrapped { width: 400px; height: 400px; }
+            .canvas-caption-wrapper { text-align: center; }
+            .canvas-caption { font-style: italic; background-color: #F5F2CA; }
+            .code {
+                font-family: 'Courier New', Courier, monospace;
+                background-color: #eee;
+                padding: 3px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main-wrapper">
+            <div class="header-wrapper">
+                <h1 class="title"><a href="../../index.html">a8b.io</a></h1>
+            </div>
+            <div class="content-wrapper">
+                <div class="up-nav">
+                    <a href="../index.html">All Posts</a>
+                </div>
+                <div class="post column-container" id="principles-1">
+                    <div class="left">
+                        <div class="post-title">
+                            <h1>Linear Algebra for Deep Learning: An Interactive Visual Introduction</h1>
+                            <span class="post-date">October X, 2020</span>
+                        </div>
+                        <div class="post-content">
+                            <h2 id="introduction">Introduction</h2>
+                            <p>This post is an interactive visual introduction to the linear algebra concepts that are useful for deep learning, with real examples using PyTorch. There will <i>not</i> be a focus on formulas, rather a focus on what these concepts mean and how they are utilized in deep learning. A great (and longer) introduction that is more generic in scope and purpose but similar in its focus on concepts over formulas is <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">3blue1brown's essence of linear algebra video series</a> which is highly recommended for those who want to know more about linear algebra in general without rigorous formality. This post is built on <a href="https://www.expunctis.com/2019/01/11//vtvt-demo.html">vtvt</a> from Ilya Perederiy. The visual examples are all 2d but all properties apply to higher dimensions as well.</p>
+
+                            <h2 id="scalars-vectors-matrices">Vectors, Scalars, Matrices, and Tensors</h2>
+                            <h3 id="vectors">Vectors</h3>
+                            <p>
+                               A vector is simply a 1-dimensional array of numbers like <span class="code">x = [1, 2, 3, ...]</span>. There is a specific order to the numbers and we can refer to individual elements through an index like <span class="code">x[0] = 1</span>. You can interpet a vector as a specific point in space, where each number of the vector is the length along an axis. When we draw them we usually show an <i>arrow</i> pointing to the  coordinates starting from the origin.
+                            </p>
+                    
+                            <div class="canvas-wrapper">
+                                <canvas id='single-vector' class="canvas-wrapped"></canvas>
+                            </div>
+                            <div class="canvas-caption-wrapper">
+                                <span class="canvas-caption">Figure 1.1. A lone vector.</span>
+                            </div>
+                            <script>
+                                const scene1 = new vtvt({canvas_id: "single-vector", grid_res: 16, circle_rad: 0.5, show_matrix: false, show_eig: false});
+                                scene1.addVector({coords: [2, 3], c: "86, 70, 110", draggable: true, kind: 'vector', label: "v = @", draw_point: true});
+                                scene1.render();
+                            </script>
+                    
+                            <p>
+                               When adding two vectors you simply chain them tip to tail, which is where the arrow notation makes visual sense. Computationally, vector addition is simply element wise addition.
+                            </p>
+
+                            <div class="canvas-wrapper">
+                                <canvas id='vector-addition' class="canvas-wrapped"></canvas>
+                            </div>
+                            <div class="canvas-caption-wrapper">
+                                <span class="canvas-caption">Figure 1.2. Vector addition in action. The gray arrow is identical to w.</span>
+                            </div>
+                            <script>
+                                const scene2 = new vtvt({canvas_id: "vector-addition", grid_res: 16, circle_rad: 0.5, show_matrix: false, show_eig: false});
+                                scene2.addVector({coords: [2, 3], c: "86, 70, 110", draggable: true, kind: 'vector', label: "v = @", draw_point: true});
+                                scene2.addVector({coords: [-5, 1], c: "0, 160, 190", draggable: true, kind: 'vector', label: "w = @"});
+                                scene2.addVector({coords: [-5, 1], c: "200,200,200", draggable: true, kind: 'vector', map_coords: function(){ 
+                                    return { mapX: scene2.vectors[1].coord_x,
+                                            mapY: scene2.vectors[1].coord_y,
+                                            mapXo: scene2.vectors[0].coord_x,
+                                            mapYo: scene2.vectors[0].coord_y}}});    
+                                scene2.addVector({c: "190,160,0", draggable: true, kind: 'vector', draggable: false, label: "v + w = @", map_coords: function(){ 
+                                        return { mapX: scene2.vectors[0].coord_x + scene2.vectors[1].coord_x, 
+                                                mapY: scene2.vectors[0].coord_y + scene2.vectors[1].coord_y }}});
+                                scene2.render();
+                            </script>
+                    
+                            <h3 id="scalars">Scalars</h3>
+                            <p>
+                                Scalars are simply numbers (like <span class="code">2</span>, <span class="code">-4</span>, or <span class="code">314159.3</span>). In linear algebra they're called scalars because when you multiply a vector by a scalar they "scale" that vector as if I were resizing it by that factor while keeping it on the same line. Positive scalars scale the vector in the same direction, while negative scalars flip the vector in the opposite direction.
+                            </p>
+                            <div class="canvas-wrapper">
+                                <canvas id='scalar-multiplication' class="canvas-wrapped"></canvas>
+                            </div>
+                            <!-- todo do a slider instead of a input box -->
+                            <script>
+                                function render_scalar() {
+                                    const scalar = (document.getElementById("scalar-multiplication-factor") && document.getElementById("scalar-multiplication-factor").value) || 2;
+                                    const scene3 = new vtvt({canvas_id: "scalar-multiplication", grid_res: 32, circle_rad: 0.5, show_matrix: false, show_eig: false});
+                                    scene3.addVector({coords: [scalar * 2, scalar * 3], c: "86, 70, 110", draggable: false, kind: 'vector', label: `${scalar}*v = @`, draw_point: true});
+                                    scene3.render();
+                                }
+                                
+                                render_scalar();
+                            </script>
+                            <div class="canvas-caption-wrapper">
+                                <span class="canvas-caption">Figure 1.3. The vector v = [2, 3] multiplied by the scalar <input id="scalar-multiplication-factor" type="text" placeholder="2" style="width: 30px;" onKeyUp="render_scalar()"></input></span>
+                            </div>
+
+                            <h3 id="unit-vectors">Unit Vectors</h3>
+                            <p>A unit vector is a vector with a length of 1. There are some special names for unit vectors that run parallel to the coordinate axes. We call the vector of length 1 in the x direction  <span class="code">î</span> (pronounced "i hat"), and the vector of length 1 in the y direction <span class="code">ĵ</span> ("jay hat").</p>
+
+                            <div class="canvas-wrapper">
+                                <canvas id='unit-vectors-canvas' class="canvas-wrapped"></canvas>
+                            </div>
+                            <div class="canvas-caption-wrapper">
+                                <span class="canvas-caption">Figure 1.4. The unit vectors in the x and y directions.</span>
+                            </div>
+                            <script>
+                                const scene4 = new vtvt({canvas_id: "unit-vectors-canvas", grid_res: 4, circle_rad: 0.5, show_matrix: false, show_eig: false});
+                                scene4.addVector({coords: [1, 0], c: "86, 70, 110", draggable: false, kind: 'vector', label: "î", draw_point: true});
+                                scene4.addVector({coords: [0, 1], c: "0, 160, 190", draggable: false, kind: 'vector', label: "ĵ", draw_point: true});
+                                scene4.render();
+                            </script>
+
+                            <h3 id="basis-vectors">Basis Vectors</h3>
+                            <p>Generally speaking numbers can have units associated with them, whether explicitly stated or not. Angles can be measured in degrees or in radians for example. The idea of "each number of the vector is the length along an axis" is only half way to the truth. Each individual element of a vector is a scalar applied to some <i>basis vector</i> rather than along an axis. The entire vector is the sum of the scaled basis vectors. When we don't mention any special set of basis vectors (collectively just called a <i>basis</i>) then the unit vectors (for example î and ĵ in 2 dimensions) I mentioned earlier are the basis vectors. This is kind of equivalent to a coordinate having an x component and a y component except that the components are vectors themselves and not just numbers along the x and y axis. For example you can think of <span class="code">a = [7, 2]</span> as <span class="code">a = 7î + 2ĵ</span>. This is important because of the way the columns of a matrix contain mappings of the basis vectors which I'll show next.</p>
+
+                            <div class="canvas-wrapper">
+                                <canvas id='basis-vector-addition' class="canvas-wrapped"></canvas>
+                            </div>
+                            <div class="canvas-caption-wrapper">
+                                <span class="canvas-caption">Figure 1.5. A vector as represented by a composition of basis vectors.</span>
+                            </div>
+                            <script>
+                                const scene5 = new vtvt({canvas_id: "basis-vector-addition", grid_res: 16, circle_rad: 0.5, show_matrix: false, show_eig: false});
+                                scene5.addVector({coords: [2, 3], c: "86, 70, 110", draggable: true, kind: 'vector', label: "v = @", draw_point: true});
+                                scene5.addVector({coords: [2, 0], c: "0, 160, 190", draggable: true, kind: 'vector', label: "i", map_coords: function(){ 
+                                    return { mapX: scene5.vectors[0].coord_x, mapY: 0, mapXo: 0, mapYo: 0}}});
+                                scene5.addVector({coords: [0, 3], c: "0, 160, 190", draggable: true, kind: 'vector', label: "j", map_coords: function(){ 
+                                    return { mapX: 0, mapY: scene5.vectors[0].coord_y, mapXo: 0, mapYo: 0}}});
+
+                                scene5.addVector({coords: [0, 3], c: "200,200,200", draggable: true, kind: 'vector', map_coords: function(){ 
+                                    return { mapX: scene5.vectors[1].coord_x,
+                                            mapY: scene5.vectors[1].coord_y,
+                                            mapXo: scene5.vectors[0].coord_x,
+                                            mapYo: scene5.vectors[0].coord_y}}});    
+                                scene5.addVector({c: "190,160,0", draggable: true, kind: 'vector', draggable: false, label: "v + w = @", map_coords: function(){ 
+                                    return { mapX: scene5.vectors[0].coord_x + scene5.vectors[1].coord_x, 
+                                            mapY: scene5.vectors[0].coord_y + scene5.vectors[1].coord_y }}});
+                                            scene5.render();
+                            </script>
+
+                            <h3 id="matrices">Matrices</h3>
+                            <p>
+                                A matrix is a 2-dimensional array of numbers. Much like nested arrays, they are usually indexed with the row first then the column. However geometrically a matrix is more like a function or a transform, with matrix multiplication being the application of that function to a vector or chained with another matrix. <i>This is an important interpretation compared to thinking of matrixes as a generic array of arrays. When we do matrix multiplication we are treating the matrix in a very specific way.</i> The way a matrix encodes a transform is columnar. Each column of the matrix describes how a particular axis is transformed.
+
+                                <!-- Go into how a weight matrix works then in a neural net -->
+                            </p>
+                        </div>
+                        <div class="post-tags">
+                            <ul>
+                                <li>#linear-algebra #deep-learning #machine-learning</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="post-toc">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOC Bot -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.min.js"></script>
+        <script type="text/javascript">
+            for (post of document.getElementsByClassName('post')) {
+                const identifier = post.getAttribute("id");
+
+                tocbot.init({
+                    tocSelector: `#${identifier} .post-toc`,
+                    contentSelector: `#${identifier} .post-content`,
+                    headingSelector: 'h1, h2, h3',
+                    hasInnerContainers: true,
+                });
+            }
+        </script>
+    </body>
+</html>
