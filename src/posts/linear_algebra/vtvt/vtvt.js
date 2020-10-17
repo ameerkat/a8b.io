@@ -250,7 +250,10 @@ class vtvt {
 					if (this.label) {
 						const rounded_x = Math.round((this.coord_x + Number.EPSILON) * 100) / 100;
 						const rounded_y = Math.round((this.coord_y + Number.EPSILON) * 100) / 100;
-						const label_to_use = this.label.replace("@", `[${rounded_x}, ${rounded_y}]`);
+						const label_to_use = 
+							this.label.replace("@[x]", `${rounded_x}`)
+										.replace("@[y]", `${rounded_y}`)
+										.replace("@", `[${rounded_x}, ${rounded_y}]`);
 						parent.ctx.beginPath();
 						parent.ctx.font = "12px Arial";
 						parent.ctx.fillStyle = this.line_col;

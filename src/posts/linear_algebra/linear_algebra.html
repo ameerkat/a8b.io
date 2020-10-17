@@ -43,17 +43,17 @@
                 <div class="post column-container" id="principles-1">
                     <div class="left">
                         <div class="post-title">
-                            <h1>Linear Algebra for Deep Learning: An Interactive Visual Introduction</h1>
+                            <h1>Linear Algebra for Machine Learning: An Interactive Visual Introduction</h1>
                             <span class="post-date">October X, 2020</span>
                         </div>
                         <div class="post-content">
                             <h2 id="introduction">Introduction</h2>
-                            <p>This post is an interactive visual introduction to the linear algebra concepts that are useful for deep learning, with real examples using PyTorch. There will <i>not</i> be a focus on formulas, rather a focus on what these concepts mean and how they are utilized in deep learning. A great (and longer) introduction that is more generic in scope and purpose but similar in its focus on concepts over formulas is <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">3blue1brown's essence of linear algebra video series</a> which is highly recommended for those who want to know more about linear algebra in general without rigorous formality. This post is built on <a href="https://www.expunctis.com/2019/01/11//vtvt-demo.html">vtvt</a> from Ilya Perederiy. The visual examples are all 2d but all properties apply to higher dimensions as well.</p>
+                            <p>This post is an interactive visual introduction to the linear algebra concepts that are useful for machine learning. There will <i>not</i> be a focus on formulas, rather a focus on what these concepts mean and how they are utilized in machine learning. A great (and longer) introduction that is more generic in scope and purpose but similar in its focus on concepts over computation is <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">3blue1brown's essence of linear algebra video series</a> which is highly recommended for those who want to know more about linear algebra in general without rigorous formality. A more technical but still applied resource is the book <a href="https://mml-book.github.io/">Mathematics for Machine Learning</a> which is available online for free. Chapter 2 focuses on Linear Algebra. This post is built on <a href="https://www.expunctis.com/2019/01/11//vtvt-demo.html">vtvt</a> from Ilya Perederiy. The visual examples are all 2d but all properties apply to higher dimensions as well.</p>
 
                             <h2 id="scalars-vectors-matrices">Vectors, Scalars, Matrices, and Tensors</h2>
                             <h3 id="vectors">Vectors</h3>
                             <p>
-                               A vector is simply a 1-dimensional array of numbers like <span class="code">x = [1, 2, 3, ...]</span>. There is a specific order to the numbers and we can refer to individual elements through an index like <span class="code">x[0] = 1</span>. You can interpet a vector as a specific point in space, where each number of the vector is the length along an axis. When we draw them we usually show an <i>arrow</i> pointing to the  coordinates starting from the origin.
+                               A vector is simply a 1-dimensional array of numbers like <span class="code">x = [1, 2, 3, ...]</span>. There is a specific order to the numbers and we can refer to individual elements through an index like <span class="code">x[0] = 1</span>. You can interpet a vector as a specific point in space, where each number of the vector is the length along an axis. When we draw them we usually show an arrow pointing to the coordinates starting from the origin.
                             </p>
                     
                             <div class="canvas-wrapper">
@@ -132,7 +132,7 @@
                             </script>
 
                             <h3 id="basis-vectors">Basis Vectors</h3>
-                            <p>Generally speaking numbers can have units associated with them, whether explicitly stated or not. Angles can be measured in degrees or in radians for example. The idea of "each number of the vector is the length along an axis" is only half way to the truth. Each individual element of a vector is a scalar applied to some <i>basis vector</i> rather than along an axis. The entire vector is the sum of the scaled basis vectors. When we don't mention any special set of basis vectors (collectively just called a <i>basis</i>) then the unit vectors (for example î and ĵ in 2 dimensions) I mentioned earlier are the basis vectors. This is kind of equivalent to a coordinate having an x component and a y component except that the components are vectors themselves and not just numbers along the x and y axis. For example you can think of <span class="code">a = [7, 2]</span> as <span class="code">a = 7î + 2ĵ</span>. This is important because of the way the columns of a matrix contain mappings of the basis vectors which I'll show next.</p>
+                            <p>Generally speaking numbers can have units associated with them. Angles can be measured in degrees or in radians for example. The idea of "each number of the vector is the length along an axis" is only half way to the truth. Each individual element of a vector is a scalar applied to some <i>basis vector</i> rather than just a number along the number line of an axis. A vector is just the sum of some scaled basis vectors. When we don't mention any special set of basis vectors (collectively just called a <i>basis</i>) then the unit vectors (for example î and ĵ in 2 dimensions) I mentioned earlier are the basis vectors. Just as it can be useful both narratively and computationally to represent an angle in radians compared to degrees it can be useful to represent vectors in different bases on ocassion. As an example of how a vector is a composition of scaled basis vectors you can think of <span class="code">a = [7, 2]</span> as <span class="code">a = 7î + 2ĵ</span>. Understanding how a vector is a composition of scaled basis vectors is important because of the way the columns of a matrix contain mapping information for the basis vectors which I'll show next.</p>
 
                             <div class="canvas-wrapper">
                                 <canvas id='basis-vector-addition' class="canvas-wrapped"></canvas>
@@ -143,20 +143,12 @@
                             <script>
                                 const scene5 = new vtvt({canvas_id: "basis-vector-addition", grid_res: 16, circle_rad: 0.5, show_matrix: false, show_eig: false});
                                 scene5.addVector({coords: [2, 3], c: "86, 70, 110", draggable: true, kind: 'vector', label: "v = @", draw_point: true});
-                                scene5.addVector({coords: [2, 0], c: "0, 160, 190", draggable: true, kind: 'vector', label: "i", map_coords: function(){ 
+                                scene5.addVector({coords: [2, 0], c: "0, 160, 190", draggable: true, kind: 'vector', label: "@[x]î", map_coords: function(){ 
                                     return { mapX: scene5.vectors[0].coord_x, mapY: 0, mapXo: 0, mapYo: 0}}});
-                                scene5.addVector({coords: [0, 3], c: "0, 160, 190", draggable: true, kind: 'vector', label: "j", map_coords: function(){ 
+                                scene5.addVector({coords: [0, 3], c: "0, 160, 190", draggable: true, kind: 'vector', label: "@[y]ĵ", map_coords: function(){ 
                                     return { mapX: 0, mapY: scene5.vectors[0].coord_y, mapXo: 0, mapYo: 0}}});
 
-                                scene5.addVector({coords: [0, 3], c: "200,200,200", draggable: true, kind: 'vector', map_coords: function(){ 
-                                    return { mapX: scene5.vectors[1].coord_x,
-                                            mapY: scene5.vectors[1].coord_y,
-                                            mapXo: scene5.vectors[0].coord_x,
-                                            mapYo: scene5.vectors[0].coord_y}}});    
-                                scene5.addVector({c: "190,160,0", draggable: true, kind: 'vector', draggable: false, label: "v + w = @", map_coords: function(){ 
-                                    return { mapX: scene5.vectors[0].coord_x + scene5.vectors[1].coord_x, 
-                                            mapY: scene5.vectors[0].coord_y + scene5.vectors[1].coord_y }}});
-                                            scene5.render();
+                                scene5.render();
                             </script>
 
                             <h3 id="matrices">Matrices</h3>
