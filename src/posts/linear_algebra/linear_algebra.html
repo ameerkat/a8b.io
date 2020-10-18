@@ -16,6 +16,10 @@
         <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
 
+        <!-- MathJax -->
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
         <!-- <link rel="stylesheet" href="./vtvt/vtvt_demo_styles.css"> -->
         <script type="text/javascript" src="./vtvt/vtvt.js"></script>
 
@@ -126,8 +130,8 @@
                             </div>
                             <script>
                                 const scene4 = new vtvt({canvas_id: "unit-vectors-canvas", grid_res: 4, circle_rad: 0.5, show_matrix: false, show_eig: false});
-                                scene4.addVector({coords: [1, 0], c: "86, 70, 110", draggable: false, kind: 'vector', label: "î", draw_point: true});
-                                scene4.addVector({coords: [0, 1], c: "0, 160, 190", draggable: false, kind: 'vector', label: "ĵ", draw_point: true});
+                                scene4.addVector({coords: [1, 0], c: "86, 70, 110", draggable: false, kind: 'vector', label: "î = @", draw_point: true});
+                                scene4.addVector({coords: [0, 1], c: "0, 160, 190", draggable: false, kind: 'vector', label: "ĵ = @", draw_point: true});
                                 scene4.render();
                             </script>
 
@@ -153,10 +157,99 @@
 
                             <h3 id="matrices">Matrices</h3>
                             <p>
-                                A matrix is a 2-dimensional array of numbers. Much like nested arrays, they are usually indexed with the row first then the column. However geometrically a matrix is more like a function or a transform, with matrix multiplication being the application of that function to a vector or chained with another matrix. <i>This is an important interpretation compared to thinking of matrixes as a generic array of arrays. When we do matrix multiplication we are treating the matrix in a very specific way.</i> The way a matrix encodes a transform is columnar. Each column of the matrix describes how a particular axis is transformed.
+                                A matrix is a 2-dimensional array of numbers.
+                                
+                                <div class="canvas-wrapper">
+                                    <math>
+                                        <mrow>
+                                            <mo> [ </mo>
+                                            <mtable>
+                                            <mtr>
+                                                <mtd> <mn>3</mn> </mtd>
+                                                <mtd> <mn>7</mn> </mtd>
+                                                <mtd> <mn>1</mn> </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd> <mn>0</mn> </mtd>
+                                                <mtd> <mn>1</mn> </mtd>
+                                                <mtd> <mn>1</mn> </mtd>
+                                            </mtr>
+                                            <mtr>
+                                                <mtd> <mn>9</mn> </mtd>
+                                                <mtd> <mn>0</mn> </mtd>
+                                                <mtd> <mn>1</mn> </mtd>
+                                            </mtr>
+                                            </mtable>
+                                            <mo> ] </mo>
+                                        </mrow>
+                                    </math>
+                                </div>
+                                <div class="canvas-caption-wrapper">
+                                    <span class="canvas-caption">Figure 1.6. A 3x3 matrix.</span>
+                                </div>
 
-                                <!-- Go into how a weight matrix works then in a neural net -->
+                                When writing code in numpy, pytorch or most other libraries they are written row by row like <span class="code">a = numpy.matrix([[3, 7, 1], [0, 1, 1], [9, 0, 1]])</span>. You would index them similar to how you would an array of arrays, first the row and then the column starting at 0 for the first element. <span class="code">a[0, 1]</span> would be the 0th row (<span class="code">[3, 7, 1]</span>) and then the element at index 1 (the second item since we start at 0) which is <span class="code">7</span>.
                             </p>
+                                <!-- Go into how a weight matrix works then in a neural net -->
+
+                            <h4>Matrix Multiplication</h4>
+                            <p>
+                            The elements of a matrix have an interpretation beyond just that of an arbitrary collection of numbers. A matrix when multiplied by a vector behaves like a transformation of space. Each column of the matrix describes where one of the basis vectors goes in the transformation. For example let's look at the matrix <span class="code">[[0, 1], [-1, 0]]</span>. While we write out matrices row by row it will be easier to look at the matrix column by column.
+                            </p>
+
+                            <div class="canvas-wrapper">
+                                <math>
+                                    <mrow>
+                                        <mo> [ </mo>
+                                        <mtable>
+                                        <mtr>
+                                            <mtd> <mn>0</mn> </mtd>
+                                            <mtd> <mn>1</mn> </mtd>
+                                        </mtr>
+                                        <mtr>
+                                            <mtd> <mn>-1</mn> </mtd>
+                                            <mtd> <mn>0</mn> </mtd>
+                                        </mtr>
+                                        </mtable>
+                                        <mo> ] </mo>
+                                    </mrow>
+                                </math>
+                            </div>
+                            <div class="canvas-caption-wrapper">
+                                <span class="canvas-caption">Figure 1.7. The matrix [[0, 1], [-1, 0]].</span>
+                            </div>
+
+                            <p>The first column <math><mrow><mo>[</mo><mtable><mtr><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>-1</mn></mtd></mtr></mtable><mo>]</mo></mrow></math> tells where î will go to, and the <math><mrow><mo>[</mo><mtable><mtr><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd></mtr></mtable><mo>]</mo></mrow></math> tells where ĵ will go. When multiplying this matrix with a vector, we can simply sum the scaled new vectors ([0, -1] and [1, 0]) the same way we summed the scaled up basis vectors in the section on basis vectors.</p>
+
+                            <div class="canvas-wrapper">
+                                <canvas id='matrix-multiplication-1' class="canvas-wrapped"></canvas>
+                            </div>
+                            <div class="canvas-caption-wrapper">
+                                <span class="canvas-caption">Figure 1.8. The matrix [[0, 1], [-1, 0]] transforming space.</span>
+                            </div>
+                            <script>
+                                let rotationAmountDegrees = 0;
+
+                                function draw() {
+                                    rotationAmountDegrees += 1;
+                                    if (rotationAmountDegrees >= 90) {
+                                        rotationAmountDegrees = 0; // reset
+                                    }
+
+                                    const scene6 = new vtvt({canvas_id: "matrix-multiplication-1", grid_res: 4, circle_rad: 0.5, show_matrix: false, show_eig: false, context_callback: function(canvas, ctx) {
+                                        console.log("rotating context", rotationAmountDegrees);
+                                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                        ctx.rotate(rotationAmountDegrees * Math.PI / 180);
+                                        ctx.beginPath();
+                                    }});
+
+                                    scene6.addVector({coords: [1, 0], c: "86, 70, 110", draggable: false, kind: 'vector', label: "î", draw_point: true});
+                                    scene6.addVector({coords: [0, 1], c: "0, 160, 190", draggable: false, kind: 'vector', label: "ĵ", draw_point: true});
+                                    scene6.render();
+                                }
+
+                                setInterval(draw, 200);
+                            </script>
                         </div>
                         <div class="post-tags">
                             <ul>

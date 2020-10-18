@@ -1,6 +1,6 @@
 // v 1.03
 class vtvt {
-	constructor({canvas_id, grid_res = 14, snap_to_grid = true, circle_rad = 0.5, point_rad = 0.06, rendering_scale = 1, show_matrix = true, show_eig = true, eig_col = "150, 150, 150", eig_length = 4, frame_duration = 500, anim_trigger_id = '', label_font='12px Arial'}={}) {
+	constructor({canvas_id, grid_res = 14, snap_to_grid = true, circle_rad = 0.5, point_rad = 0.06, rendering_scale = 1, show_matrix = true, show_eig = true, eig_col = "150, 150, 150", eig_length = 4, frame_duration = 500, anim_trigger_id = '', label_font='12px Arial', context_callback = null}={}) {
 		this.grid_res = grid_res; 					// grid units for both width and height
 		this.snap_to_grid_flag = snap_to_grid; 		// snap to gred flag
 		this.circle_rad = circle_rad;   			// clickable/touchable area of a vector
@@ -11,6 +11,7 @@ class vtvt {
 		this.eig_colour = eig_col;               	// eigenvector colour
 		this.eig_length = eig_length;				// eigenvector length
 		this.rendering_scale = rendering_scale;     // affects arrow size and sharpness
+		this.context_callback = context_callback;
 
 		this.anim_trigger_id = anim_trigger_id;
 		if (this.anim_trigger_id) { 
@@ -20,6 +21,10 @@ class vtvt {
 
 		this.canvas = document.getElementById(canvas_id);
 		this.ctx = this.canvas.getContext("2d");
+
+		if (this.context_callback) {
+			this.context_callback(this.canvas, this.ctx);
+		}
 
 		// Set actual size as per device screen density scale times rendering_scale
 		this.scale = window.devicePixelRatio*this.rendering_scale; 
