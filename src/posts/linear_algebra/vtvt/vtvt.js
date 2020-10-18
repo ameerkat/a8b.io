@@ -12,6 +12,7 @@ class vtvt {
 		this.eig_length = eig_length;				// eigenvector length
 		this.rendering_scale = rendering_scale;     // affects arrow size and sharpness
 		this.context_callback = context_callback;
+		this.label_font = label_font;
 
 		this.anim_trigger_id = anim_trigger_id;
 		if (this.anim_trigger_id) { 
@@ -22,16 +23,16 @@ class vtvt {
 		this.canvas = document.getElementById(canvas_id);
 		this.ctx = this.canvas.getContext("2d");
 
-		if (this.context_callback) {
-			this.context_callback(this.canvas, this.ctx);
-		}
-
 		// Set actual size as per device screen density scale times rendering_scale
 		this.scale = window.devicePixelRatio*this.rendering_scale; 
 		this.canvas.width = this.canvas.offsetWidth * this.scale;
 		this.canvas.height = this.canvas.offsetHeight * this.scale;
 		// Normalize coordinate system to use css pixels.
 		this.ctx.scale(this.scale, this.scale);
+
+		if (this.context_callback) {
+			this.context_callback(this.canvas, this.ctx);
+		}
 
 		this.vectors = [];          // persistent vector objects (populated by user)
 		this.vectors_animated = []; // animated vector objects (populated by user)
@@ -260,7 +261,7 @@ class vtvt {
 										.replace("@[y]", `${rounded_y}`)
 										.replace("@", `[${rounded_x}, ${rounded_y}]`);
 						parent.ctx.beginPath();
-						parent.ctx.font = "12px Arial";
+						parent.ctx.font = parent.label_font;
 						parent.ctx.fillStyle = this.line_col;
 						parent.ctx.fillText(label_to_use, this.label_x, this.label_y);
 						parent.ctx.closePath();

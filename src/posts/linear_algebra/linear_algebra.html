@@ -129,7 +129,7 @@
                                 <span class="canvas-caption">Figure 1.4. The unit vectors in the x and y directions.</span>
                             </div>
                             <script>
-                                const scene4 = new vtvt({canvas_id: "unit-vectors-canvas", grid_res: 4, circle_rad: 0.5, show_matrix: false, show_eig: false});
+                                const scene4 = new vtvt({canvas_id: "unit-vectors-canvas", grid_res: 4, circle_rad: 0.5, show_matrix: false, show_eig: false, label_font: '24px Arial'});
                                 scene4.addVector({coords: [1, 0], c: "86, 70, 110", draggable: false, kind: 'vector', label: "î = @", draw_point: true});
                                 scene4.addVector({coords: [0, 1], c: "0, 160, 190", draggable: false, kind: 'vector', label: "ĵ = @", draw_point: true});
                                 scene4.render();
@@ -219,7 +219,7 @@
                                 <span class="canvas-caption">Figure 1.7. The matrix [[0, 1], [-1, 0]].</span>
                             </div>
 
-                            <p>The first column <math><mrow><mo>[</mo><mtable><mtr><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>-1</mn></mtd></mtr></mtable><mo>]</mo></mrow></math> tells where î will go to, and the <math><mrow><mo>[</mo><mtable><mtr><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd></mtr></mtable><mo>]</mo></mrow></math> tells where ĵ will go. When multiplying this matrix with a vector, we can simply sum the scaled new vectors ([0, -1] and [1, 0]) the same way we summed the scaled up basis vectors in the section on basis vectors.</p>
+                            <p>The first column <math><mrow><mo>[</mo><mtable><mtr><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>-1</mn></mtd></mtr></mtable><mo>]</mo></mrow></math> tells where î will go to, and the <math><mrow><mo>[</mo><mtable><mtr><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd></mtr></mtable><mo>]</mo></mrow></math> tells where ĵ will go.</p>
 
                             <div class="canvas-wrapper">
                                 <canvas id='matrix-multiplication-1' class="canvas-wrapped"></canvas>
@@ -232,15 +232,20 @@
 
                                 function draw() {
                                     rotationAmountDegrees += 1;
-                                    if (rotationAmountDegrees >= 90) {
+                                    if (rotationAmountDegrees >= 160) {
                                         rotationAmountDegrees = 0; // reset
                                     }
 
-                                    const scene6 = new vtvt({canvas_id: "matrix-multiplication-1", grid_res: 4, circle_rad: 0.5, show_matrix: false, show_eig: false, context_callback: function(canvas, ctx) {
-                                        console.log("rotating context", rotationAmountDegrees);
+                                    const rotationToUse = rotationAmountDegrees > 90 ? 90 : rotationAmountDegrees;
+                                    
+                                    const scene6 = new vtvt({canvas_id: "matrix-multiplication-1", grid_res: 4, circle_rad: 0.5, show_matrix: false, show_eig: false, 
+                                    label_font: '24px Arial',
+                                    context_callback: function(canvas, ctx) {
+                                        //ctx.setTransform(1, 0, 0, 1, 0, 0);
                                         ctx.clearRect(0, 0, canvas.width, canvas.height);
-                                        ctx.rotate(rotationAmountDegrees * Math.PI / 180);
-                                        ctx.beginPath();
+                                        ctx.translate(canvas.width / 4, canvas.height / 4);
+                                        ctx.rotate(rotationToUse * Math.PI / 180);
+                                        ctx.translate(-1 * canvas.width / 4, -1 * canvas.height / 4);
                                     }});
 
                                     scene6.addVector({coords: [1, 0], c: "86, 70, 110", draggable: false, kind: 'vector', label: "î", draw_point: true});
@@ -248,8 +253,103 @@
                                     scene6.render();
                                 }
 
-                                setInterval(draw, 200);
+                                setInterval(draw, 10);
                             </script>
+
+                            <p>Observing how the unit vectors are transformed shows that this matrix describes a 90 degree clockwise rotation. When multiplying this matrix with a vector, we can simply sum the scaled new vectors ([0, -1] and [1, 0]) the same way we summed the scaled up basis vectors in the section on basis vectors. For example the vector <span class="code">[3, 7]</span> when multiplied by <span class="code">[[0, 1], [-1, 0]]</span>.</p>
+
+                            <div class="canvas-wrapper">
+                                <math>
+                                    <mrow>
+                                        <mo> [ </mo>
+                                        <mtable>
+                                        <mtr>
+                                            <mtd> <mn>0</mn> </mtd>
+                                            <mtd> <mn>1</mn> </mtd>
+                                        </mtr>
+                                        <mtr>
+                                            <mtd> <mn>-1</mn> </mtd>
+                                            <mtd> <mn>0</mn> </mtd>
+                                        </mtr>
+                                        </mtable>
+                                        <mo> ] </mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo> [ </mo>
+                                        <mtable>
+                                        <mtr>
+                                            <mtd> <mn>3</mn> </mtd>
+                                            <mtd> <mn>7</mn> </mtd>
+                                        </mtr>
+                                        </mtable>
+                                        <mo> ] </mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo> = 3 </mo>
+                                        <mo> [ </mo>
+                                        <mtable>
+                                        <mtr>
+                                            <mtd> <mn>0</mn> </mtd>
+                                        </mtr>
+                                        <mtr>
+                                            <mtd> <mn>-1</mn> </mtd>
+                                        </mtr>
+                                        </mtable>
+                                        <mo> ] </mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo> + 7 </mo>
+                                        <mo> [ </mo>
+                                        <mtable>
+                                        <mtr>
+                                            <mtd> <mn>1</mn> </mtd>
+                                        </mtr>
+                                        <mtr>
+                                            <mtd> <mn>0</mn> </mtd>
+                                        </mtr>
+                                        </mtable>
+                                        <mo> ] </mo>
+                                    </mrow>
+                                    <mrow>
+                                        <mo> = </mo>
+                                        <mo> [ </mo>
+                                        <mtable>
+                                        <mtr>
+                                            <mtd> <mn>7</mn> </mtd>
+                                            <mtd> <mn>-3</mn> </mtd>
+                                        </mtr>
+                                        </mtable>
+                                        <mo> ] </mo>
+                                    </mrow>
+                                </math>
+                            </div>
+                            <div class="canvas-caption-wrapper">
+                                <span class="canvas-caption">Figure 1.9. [3, 7] multiplied by [[0, 1], [-1, 0]].</span>
+                            </div>
+                            <br />
+
+                            <div class="canvas-wrapper">
+                                <canvas id='matrix-multiplication-2' class="canvas-wrapped"></canvas>
+                            </div>
+                            <div class="canvas-caption-wrapper">
+                                <span class="canvas-caption">Figure 1.10. v multiplied by [[0, 1], [-1, 0]].</span>
+                            </div>
+                            <script>
+                                const scene7 = new vtvt({canvas_id: "matrix-multiplication-2", grid_res: 20, circle_rad: 0.5, show_matrix: false, show_eig: false});
+                                scene7.addVector({coords: [4, 1], c: "86, 70, 110", draggable: true, kind: 'vector', label: "v = @", draw_point: true});
+                                scene7.addVector({coords: [2, 0], c: "0, 160, 190", draggable: false, kind: 'vector', label: "[[0, 1], [-1, 0]]*v = @", map_coords: function(){ 
+                                    return { mapX: scene7.vectors[0].coord_y, mapY: -1 * scene7.vectors[0].coord_x, mapXo: 0, mapYo: 0}}});
+
+                                scene7.render();
+                            </script>
+
+                            <p>Each element of the vector needs to correspond to a column of the matrix therefore for a matrix multiplication to be valid the number of elements in the vector and the number of columns in the matrix needs to match.</p>
+
+                            <h3>Tensors</h3>
+                            <p>A tensor is a generalization of scalars, vectors, and matrices. A 0-dimensional tensor is a scalar, a 1-dimensional tensor is a vector, and a 2-dimensional tensor is a matrix. PyTorch, Tensorflow, and other libraries don't have individual concepts for vectors and matrices and combine them generically into a tensor.</p>
+
+                            <h2>Neural Network Weight Matrix</h2>
+                            <p></p>
                         </div>
                         <div class="post-tags">
                             <ul>
