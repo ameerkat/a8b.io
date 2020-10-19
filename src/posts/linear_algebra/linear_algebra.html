@@ -57,7 +57,7 @@
                             <h2 id="scalars-vectors-matrices">Vectors, Scalars, Matrices, and Tensors</h2>
                             <h3 id="vectors">Vectors</h3>
                             <p>
-                               A vector is simply a 1-dimensional array of numbers like <span class="code">x = [1, 2, 3, ...]</span>. There is a specific order to the numbers and we can refer to individual elements through an index like <span class="code">x[0] = 1</span>. You can interpet a vector as a specific point in space, where each number of the vector is the length along an axis. When we draw them we usually show an arrow pointing to the coordinates starting from the origin.
+                               A vector is simply a 1-dimensional array of numbers like <span class="code">x = [1, 2, 3, ...]</span>. There is a specific order to the numbers and we can refer to individual elements through an index like <span class="code">x[0] = 1</span>. You can interpet a vector as a specific point in space, where each number of the vector is the length along an axis. When we draw them we usually show an arrow pointing to the coordinates starting from the origin. In machine learning applications you can think of an individual sample in our data set as a vector in "feature space", with each axis representing a feature and the value along that axis as the numerical value of the feature. Features always end up getting represented numerically to perform computations on them. Things like categorical features (for example a weather feature with values "sunny", "cloudy", etc.) get transformed to a number ("sunny" → 0, "cloudy" → 1, etc.) via a process called feature encoding. There are many ways to encode categorical features to numbers with one of the most popular being <a href="https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/">One-Hot encoding</a>, for examples of different encoding methods you can refer to the Kaggle notebook <a href="https://www.kaggle.com/prashanththangavel/advanced-feature-engineering-feature-encoding">"Advanced Feature Engineering - Feature Encoding"</a>.
                             </p>
                     
                             <div class="canvas-wrapper">
@@ -99,7 +99,7 @@
                     
                             <h3 id="scalars">Scalars</h3>
                             <p>
-                                Scalars are simply numbers (like <span class="code">2</span>, <span class="code">-4</span>, or <span class="code">314159.3</span>). In linear algebra they're called scalars because when you multiply a vector by a scalar they "scale" that vector as if I were resizing it by that factor while keeping it on the same line. Positive scalars scale the vector in the same direction, while negative scalars flip the vector in the opposite direction.
+                                Scalars are simply numbers (like <span class="code">2</span>, <span class="code">-4</span>, or <span class="code">314159.3</span>). In linear algebra they're called scalars because when you multiply a vector by a scalar they "scale" that vector as if I were resizing it by that factor while keeping it on the same line. Positive scalars scale the vector in the same direction, while negative scalars flip the vector in the opposite direction. When you multiply a vector by a scalar you simply multiply all the elements of the vector by the scalar.
                             </p>
                             <div class="canvas-wrapper">
                                 <canvas id='scalar-multiplication' class="canvas-wrapped"></canvas>
@@ -136,7 +136,7 @@
                             </script>
 
                             <h3 id="basis-vectors">Basis Vectors</h3>
-                            <p>Generally speaking numbers can have units associated with them. Angles can be measured in degrees or in radians for example. The idea of "each number of the vector is the length along an axis" is only half way to the truth. Each individual element of a vector is a scalar applied to some <i>basis vector</i> rather than just a number along the number line of an axis. A vector is just the sum of some scaled basis vectors. When we don't mention any special set of basis vectors (collectively just called a <i>basis</i>) then the unit vectors (for example î and ĵ in 2 dimensions) I mentioned earlier are the basis vectors. Just as it can be useful both narratively and computationally to represent an angle in radians compared to degrees it can be useful to represent vectors in different bases on ocassion. As an example of how a vector is a composition of scaled basis vectors you can think of <span class="code">a = [7, 2]</span> as <span class="code">a = 7î + 2ĵ</span>. Understanding how a vector is a composition of scaled basis vectors is important because of the way the columns of a matrix contain mapping information for the basis vectors which I'll show next.</p>
+                            <p>Generally speaking numbers can have units associated with them. Angles can be measured in degrees or in radians for example. The idea of "each number of the vector is the length along an axis" is only half way to the truth. Each individual element of a vector is a scalar applied to some <i>basis vector</i> rather than just a number along the number line of an axis. A vector is just the combination/sum of some scaled basis vectors the same way a coordinate is the combination of the x and y components. When we don't mention any special set of basis vectors (collectively just called a <i>basis</i>) then the unit vectors (for example î and ĵ in 2 dimensions) I mentioned earlier are the basis vectors. Just as it can be useful both narratively and computationally to represent an angle in radians compared to degrees it can be useful to represent vectors in different bases on ocassion (such as in Principal Component Analysis which will be described later). As an example of how a vector is a composition of scaled basis vectors you can think of <span class="code">a = [7, 2]</span> as <span class="code">a = 7î + 2ĵ</span>. Understanding how a vector is a composition of scaled basis vectors is important because of the way the columns of a matrix contain mapping information for the basis vectors during multiplication.</p>
 
                             <div class="canvas-wrapper">
                                 <canvas id='basis-vector-addition' class="canvas-wrapped"></canvas>
@@ -243,9 +243,11 @@
                                     context_callback: function(canvas, ctx) {
                                         //ctx.setTransform(1, 0, 0, 1, 0, 0);
                                         ctx.clearRect(0, 0, canvas.width, canvas.height);
-                                        ctx.translate(canvas.width / 4, canvas.height / 4);
+                                        // TODO note whether or not to use 4 or 2 here seems platform dependent?
+                                        // how do we choose. On laptop it's 4
+                                        ctx.translate(canvas.width / 2, canvas.height / 2);
                                         ctx.rotate(rotationToUse * Math.PI / 180);
-                                        ctx.translate(-1 * canvas.width / 4, -1 * canvas.height / 4);
+                                        ctx.translate(-1 * canvas.width / 2, -1 * canvas.height / 2);
                                     }});
 
                                     scene6.addVector({coords: [1, 0], c: "86, 70, 110", draggable: false, kind: 'vector', label: "î", draw_point: true});
@@ -343,13 +345,14 @@
                                 scene7.render();
                             </script>
 
-                            <p>Each element of the vector needs to correspond to a column of the matrix therefore for a matrix multiplication to be valid the number of elements in the vector and the number of columns in the matrix needs to match.</p>
+                            <p>Each element of the vector being multiplied needs to correspond to a column of the matrix therefore for a matrix multiplication to be valid the number of elements in the vector and the number of columns in the matrix needs to match. You can also multiply two matrices together, which acts as chaining the transformations together in sequence. When multiple matrix multiplications are involved the rightmost / innermost one takes effect first just like when nesting functions.</p>
 
                             <h3>Tensors</h3>
-                            <p>A tensor is a generalization of scalars, vectors, and matrices. A 0-dimensional tensor is a scalar, a 1-dimensional tensor is a vector, and a 2-dimensional tensor is a matrix. PyTorch, Tensorflow, and other libraries don't have individual concepts for vectors and matrices and combine them generically into a tensor.</p>
+                            <p>A tensor is a generalization of scalars, vectors, and matrices. A 0-dimensional tensor is a scalar, a 1-dimensional tensor is a vector, and a 2-dimensional tensor is a matrix. Some libraries such as PyTorch and Tensorflow don't have individual concepts for vectors and matrices and combine them generically into a tensor. For example a matrix in PyTorch could be represented as <span class="code">x = torch.tensor([[1, 2, 3], [4, 5, 6]])</span></p>
 
-                            <h2>Neural Network Weight Matrix</h2>
-                            <p></p>
+                            <h2>Application: Neural Network Weight Matrix</h2>
+                            <!-- todo include a picture of the network -->
+                            Neural networks in machine learning are networks of computational "nodes". Each node performs some computation based on its inputs and produces an output. The function each node performs is usually fixed, and the functions you use and the way you wire up these functions is collectively known as the architecture of the neural network. What the computer learns at training time is actually a <b>weight matrix</b> that transforms the input to each node. The weight matrix is "learned" is through back propagation. Error is calculated by taking the difference between some known label and what the network predicted. We then take really small steps to change the weight matrices to minimize the error. We know which way to take those steps based on calculating the derivative.
                         </div>
                         <div class="post-tags">
                             <ul>
