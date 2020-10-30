@@ -174,4 +174,6 @@ body {
 .figure .caption {
 	font-style: italic;
 	color: #777777;
+	display: inline-block;
+	max-width: 80%;
 }
