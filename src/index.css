@@ -6,6 +6,38 @@ body {
     margin: 0px;
 }
 
+.content-header-wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	font-size: 10pt;
+	color: #777777;
+	justify-content: space-between;
+}
+
+.content-header-wrapper a {
+	color: #777777;
+}
+
+.content-header-wrapper .social-item {
+	font-style: italic;
+	margin-bottom: 10px;
+}
+
+.content-header-wrapper .social-item .mini-profile-image {
+    max-height: 20px;
+    border-radius: 50%;
+    position: relative;
+    top: 6px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.social-logo {
+	max-height: 42px;
+	max-width: 42px;
+}
+
 .header-wrapper {
 	padding: 5%;
 	background-image: url("./images/big_ben_unsplash_low.jpg");
@@ -128,4 +160,18 @@ body {
 	margin-top: 20px;
 	text-align: center;
 	display: block;
+}
+
+.figure {
+	text-align: center;
+}
+
+.figure img {
+	display: block;
+	margin: 5px auto;
+}
+
+.figure .caption {
+	font-style: italic;
+	color: #777777;
 }
