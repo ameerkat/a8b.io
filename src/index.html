@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
         <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         <div class="main-wrapper">
@@ -72,7 +73,7 @@
                             <h3 id="posts">Finding and loading posts</h3>
                             <p>To train the NLP model that will classify articles I need the article text for the article submitted to Reddit and their corresponding Reddit scores. Unfortunately, the official Reddit API limits the amount of historic post data you can retrieve to 1000 items. Therefore I grabbed historic posts from <a href="https://pushshift.io/">pushshift.io</a> using code I shamelessly adapted from <a href="https://www.osrsbox.com/blog/2019/03/18/watercooler-scraping-an-entire-subreddit-2007scape/">WaterCooler: Scraping an Entire Subreddit (/r/2007scape)</a>. The output file of the script has individual lines like the one below, containing a JSON object of a post per line:</p>
 
-<pre style="white-space: pre-wrap;">{"author": "CALIPHATEMEDIA", "author_flair_css_class": null, "author_flair_text": null, "brand_safe": true, "can_mod_post": false, "contest_mode": false, "created_utc": 1514767344, "domain": "caliphatemedia.info", "full_link": "https://www.reddit.com/r/business/comments/7nc5yf/south_korea_to_regulate_bitcoin_trading_further/", "id": "7nc5yf", "is_crosspostable": false, "is_reddit_media_domain": false, "is_self": false, "is_video": false, "locked": false, "num_comments": 0, "num_crossposts": 0, "over_18": false, "parent_whitelist_status": "all_ads", "permalink": "/r/business/comments/7nc5yf/south_korea_to_regulate_bitcoin_trading_further/", "pinned": false, "retrieved_on": 1514841750, "score": 1, "selftext": "", "spoiler": false, "stickied": false, "subreddit": "business", "subreddit_id": "t5_2qgzg", "subreddit_type": "public", "thumbnail": "default", "thumbnail_height": 140, "thumbnail_width": 140, "title": "South korea to regulate bitcoin trading further with tougher measures", "url": "http://www.caliphatemedia.info/2017/12/south-korea-govt-to-introduce-tougher.html", "whitelist_status": "all_ads"}</pre>
+                            <span style="font-family: consolas, sans serif; overflow-wrap: anywhere;">{"author": "CALIPHATEMEDIA", "author_flair_css_class": null, "author_flair_text": null, "brand_safe": true, "can_mod_post": false, "contest_mode": false, "created_utc": 1514767344, "domain": "caliphatemedia.info", "full_link": "https://www.reddit.com/r/business/comments/7nc5yf/south_korea_to_regulate_bitcoin_trading_further/", "id": "7nc5yf", "is_crosspostable": false, "is_reddit_media_domain": false, "is_self": false, "is_video": false, "locked": false, "num_comments": 0, "num_crossposts": 0, "over_18": false, "parent_whitelist_status": "all_ads", "permalink": "/r/business/comments/7nc5yf/south_korea_to_regulate_bitcoin_trading_further/", "pinned": false, "retrieved_on": 1514841750, "score": 1, "selftext": "", "spoiler": false, "stickied": false, "subreddit": "business", "subreddit_id": "t5_2qgzg", "subreddit_type": "public", "thumbnail": "default", "thumbnail_height": 140, "thumbnail_width": 140, "title": "South korea to regulate bitcoin trading further with tougher measures", "url": "http://www.caliphatemedia.info/2017/12/south-korea-govt-to-introduce-tougher.html", "whitelist_status": "all_ads"}</span>
 
                             <p>After generating a file with all the historic posts, I loaded the contents referenced by the "url" field of each JSON line into <a href="https://github.com/slaveofcode/boilerpipe3">boilerpipe3</a> which can transform full HTML documents into simple text.</p>
 
@@ -145,7 +146,7 @@
                 </div>
 
                 <div class="footer">
-                    <a href="./posts/index.html">See All Posts</a>
+                    <a href="./posts/index.html" class="see-all-posts">See All Posts</a>
                 </div>
             </div>
         </div>

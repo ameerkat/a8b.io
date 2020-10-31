@@ -11,12 +11,12 @@ body {
 	flex-direction: row;
 	align-items: flex-end;
 	font-size: 10pt;
-	color: #777777;
+	color: #333333;
 	justify-content: space-between;
 }
 
 .content-header-wrapper a {
-	color: #777777;
+	color: #333333;
 }
 
 .content-header-wrapper .social-item {
@@ -63,12 +63,10 @@ body {
 .content-wrapper {
 	max-width: 1600px;
 	width: 80vw;
-	min-width: 1024px;
 	margin: 0px auto 20px auto;
 }
 
 .content-wrapper .post {
-	padding: 40px;
 	line-height: 1.7rem;
 	background-color: #fff;
 	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .2);
@@ -80,13 +78,14 @@ body {
 }
 
 .content-wrapper .post.column-container .right {
-	padding-left: 20px;
+	flex: 0 0 250px;
 }
 
 .content-wrapper .post.column-container .right .post-toc {
 	position: sticky;
 	top: 10px;
-	width: 240px;
+	margin-top: 20px;
+	padding-right: 10px;
 	overflow: hidden;
 }
 
@@ -106,12 +105,21 @@ body {
 	.content-wrapper .post.column-container .right {
 		display: none;
 	}
+
+	.content-wrapper {
+		width: 95vw;
+	}
 }
 
 .content-wrapper .post-title {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	flex-wrap: wrap;
+}
+
+.content-wrapper .post-content, .content-wrapper .post-title, .content-wrapper .post-tags {
+	margin: 20px;
 }
 
 .content-wrapper .post .post-title a {
@@ -149,14 +157,15 @@ body {
 
 .content-wrapper .up-nav, .content-wrapper .footer {
 	color: #fff;
-	background-color: #56466e;
 	display: inline-block;
-	padding: 10px;
 }
 
-.content-wrapper .up-nav a, .content-wrapper .footer a {
+.content-wrapper .up-nav a, .content-wrapper .footer a.see-all-posts {
+	background-color: #56466e;
 	text-decoration: none;
 	color: #fff;
+	display: block;
+	padding: 10px;
 }
 
 .content-wrapper .footer {
@@ -172,11 +181,12 @@ body {
 .figure img {
 	display: block;
 	margin: 5px auto;
+	max-width: 60vw;
 }
 
 .figure .caption {
 	font-style: italic;
-	color: #777777;
+	color: #333333;
 	display: inline-block;
 	max-width: 80%;
 }
