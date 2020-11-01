@@ -1,0 +1,13 @@
+baseURL = "https://www.a8b.io/"
+languageCode = "en-us"
+title = "a8b.io"
+theme = "kiera"
+
+pygmentsCodeFences = true
+googleAnalytics = "UA-126051187-1"
+
+[markup.goldmark.renderer]
+unsafe= true
+
+[author]
+twitter = "AmeerNAyoub"
