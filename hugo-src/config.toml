@@ -2,6 +2,7 @@ baseURL = "https://www.a8b.io/"
 languageCode = "en-us"
 title = "a8b.io"
 theme = "kiera"
+copyright = "Copyright {year} a8b.io"
 
 pygmentsCodeFences = true
 googleAnalytics = "UA-126051187-1"
@@ -11,3 +12,10 @@ unsafe= true
 
 [author]
 twitter = "AmeerNAyoub"
+
+[params]
+UtterancesRepo = "ameerkat/a8b.io"
+UtterancesIssueTerm = "pathname"
+customCSS = ["/custom.css"]
+favicon = "/favicon.ico"
+description = "The personal blog of Ameer N. Ayoub"
