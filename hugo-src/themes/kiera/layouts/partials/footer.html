@@ -1,0 +1,14 @@
+</main>
+    <footer>
+        <h6>{{ replace .Site.Copyright "{year}" now.Year | markdownify }} |
+            <a href="{{.Site.BaseURL}}index.xml">{{ T "subscribe" }} </a> | 
+            <a href="mailto:me@a8b.io">Contact</a></h6>
+    </footer>
+</div>
+<script src="{{ "js/scripts.js" | relURL }}"></script>
+{{ if .Site.GoogleAnalytics }}
+  {{ template "_internal/google_analytics_async.html" . }}
+{{ end }}
+</body>
+
+</html>
