@@ -2,3 +2,7 @@ figcaption {
     color: #777777;
     text-align: center;
 }
+
+#container .email-signup-form button {
+    padding: 0px;
+}
