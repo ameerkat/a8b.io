@@ -6,3 +6,12 @@ figcaption {
 #container .email-signup-form button {
     padding: 0px;
 }
+
+a {
+    color: #56466E;
+    text-decoration: underline;
+}
+
+h1 a {
+    text-decoration: none;
+}
