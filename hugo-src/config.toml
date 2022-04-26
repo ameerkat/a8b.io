@@ -11,7 +11,7 @@ googleAnalytics = "UA-126051187-1"
 unsafe= true
 
 [author]
-twitter = "AmeerNAyoub"
+twitter = "someameer"
 
 [params]
 UtterancesRepo = "ameerkat/a8b.io"
