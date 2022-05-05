@@ -1,6 +1,6 @@
 +++
 title = "Survey of Web3 Analytics"
-date = 2022-04-26T16:11:00+01:00
+date = 2022-05-05T23:51:00+01:00
 images = []
 tags = ["web3", "analytics", "social", "dune", "opensea", "4 experiments", "bootstrap", "nifty analytics"]
 categories = []
