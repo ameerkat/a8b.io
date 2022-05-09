@@ -18,4 +18,4 @@ UtterancesRepo = "ameerkat/a8b.io"
 UtterancesIssueTerm = "pathname"
 customCSS = ["/custom.css"]
 favicon = "/favicon.ico"
-description = "The personal blog of Ameer N. Ayoub"
+description = "The personal blog of Ameer Ayoub (@someameer)"
