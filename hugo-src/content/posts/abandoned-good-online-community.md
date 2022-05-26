@@ -4,7 +4,7 @@ date = 2022-05-09T10:39:00-07:00
 images = []
 tags = ["web3", "social", "4 experiments", "bootstrap", "nifty analytics"]
 categories = []
-draft = false
+draft = true
 +++
 
 What makes a good community online? This is an interesting question, particulary with in the context of web3. Web3 is inherently distributed and decentralized by definition. Communities exist on many platforms, and are an amorphous multi-faceted blob that can be hard to formalize (as compared to maybe a webforum that is more easily trackable). Good communities have a great "vibe" but it can be hard to pinpoint what that actually means. As an individual it can be overwhelming to discover or evaluate those communities and projects. There are attributes of a "good" community that are highly personal, and there are attributes that are more universal. Let's look at some of them.
